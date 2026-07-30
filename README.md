@@ -2,16 +2,18 @@
 
 A lightning-fast, terminal-native application to search the Berlin Public Library (VÖBB) network for physical books. 
 
-This tool bypasses VÖBB's clunky, stateful frontend and slow catalog APIs. It combines the speed of the OpenLibrary REST API for exact metadata matching with a robust, headless Playwright scraper to check live shelf availability across Berlin—directly from your terminal.
+This tool bypasses VÖBB's clunky, stateful frontend and slow catalog APIs. It combines the speed of the undocumented Goodreads JSON autocomplete API with a brilliant localized translation bridge and a robust, headless Playwright scraper to check live shelf availability across Berlin—directly from your terminal.
 
-All vibe-coded in 2h.
+All vibe-coded, so beware.
 
 ## ✨ Features
 
-- **Blazing Fast Metadata:** Uses OpenLibrary to resolve Title, Author, and Language in milliseconds before ever touching the library catalog.
+- **Blazing Fast Metadata:** Uses the lightweight Goodreads JSON API to resolve Title and Author in milliseconds.
+- **The "Rosetta Stone" Translation Bridge:** Automatically traverses Goodreads Work IDs to discover the localized titles (e.g., German, Spanish) of foreign books so you actually find what the library stocks.
 - **Foolproof Scraping:** Bypasses legacy UI limitations by parsing the structured DOM, safely ignoring false positives like e-books, audiobooks, and incorrect languages.
 - **Smart Proximity Sorting:** Pins your preferred local branches to the very top of the results list.
 - **Condition Reporting:** Isolates specific shelf conditions (e.g., "Wasserschaden", "Bestellt") into a clean, separate column.
+- **📋 To-Read Manager & Auto-Scanner:** Maintain a local reading list. Press `s` at any time to unleash a background worker that scans your entire list against the VÖBB catalog and populates the UI with live, local hits.
 - **Sleek TUI:** Built with Textual for a modern, responsive, and mouse-friendly Command Line Interface.
 
 ### To be added
@@ -58,18 +60,23 @@ python app.py
 ```
 
 ### First-Run Setup
-The first time you launch the application, a modal will prompt you to enter your preferred local library branches (e.g., `Mark Twain`). Can handle partial library names. Beware that `Mitte` will maybe add libraries to your preferred libraries that are not easy to reach.
+The first time you launch the application, a modal will prompt you to enter your preferences:
+1. **Local Library Branches:** (e.g., `Mark Twain`). Can handle partial library names. Beware that `Mitte` adds all branches in Mitte, adding libraries to your preferred list that are not easy to reach.
+2. **Preferred Languages:** (e.g., `deutsch, englisch`). The app uses these to fetch the correct translated editions from Goodreads and to filter the VÖBB shelf results.
 
 The app saves these to a local `voebb_config.json` file. Whenever a book you search for is physically available at one of these branches, it will be automatically highlighted and pinned to the top of your results list.
 
 ### How to use the TUI
 1. Type a book title or author and press `Enter`.
-2. Use the arrow keys or your mouse to select the exact edition/language from the OpenLibrary results.
-3. Press `Enter` to unleash the scraper.
+2. The app will fetch the book and automatically discover its translated titles based on your preferred languages. Use the arrow keys or your mouse to select the exact edition you want.
+3. **Actions:**
+   - Press `Enter` to unleash the scraper and search VÖBB for that specific book.
+   - Press `t` to save the highlighted edition directly to your To-Read list.
+   - Press `s` at any time to run a batch scan of your entire To-Read list.
 4. Press `q` or `Ctrl+C` to quit the application at any time.
 
 ## 📂 File Structure
 
-- `app.py`: The main application logic (API requests, Playwright scraper, Textual UI).
+- `app.py`: The main application logic (Goodreads APIs, Playwright scraper, Textual UI).
 - `app.tcss`: The stylesheet controlling the terminal interface's layout, animations, and colors.
-- `voebb_config.json`: Auto-generated on first run, stores your preferred local branches.
+- `voebb_config.json`: Auto-generated on first run, stores your preferred local branches and To-Read list.
