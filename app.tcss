@@ -19,8 +19,13 @@ Footer {
     height: auto;
 }
 
+.search-bar {
+    height: auto;
+    margin-bottom: 1;
+}
+
 #query-input {
-    width: 75%;
+    width: 60%;
     border: tall #89b4fa;
     background: #1e1e2e;
     color: #cdd6f4;
@@ -31,7 +36,7 @@ Footer {
 }
 
 #search-btn {
-    width: 25%;
+    width: 15%;
     margin-left: 1;
     background: #89b4fa;
     color: #11111b;
@@ -43,6 +48,19 @@ Footer {
     background: #a6e3a1;
 }
 
+#manage-toread-btn {
+    width: 20%;
+    margin-left: 1;
+    background: #cba6f7;
+    color: #11111b;
+    text-style: bold;
+    border: none;
+}
+
+#manage-toread-btn:hover {
+    background: #f5c2e7;
+}
+
 #status-area {
     height: 3;
     margin-top: 1;
@@ -51,7 +69,7 @@ Footer {
 }
 
 #book-selection-list {
-    width: 80%;
+    width: 100%;
     height: auto;
     max-height: 8;
     border: round #89b4fa;
@@ -60,7 +78,7 @@ Footer {
 }
 
 #results-table {
-    width: 80%;
+    width: 100%;
     height: 1fr;
     border: round #45475a;
     margin-top: 1;
@@ -68,13 +86,13 @@ Footer {
     display: none; 
 }
 
-/* --- SETUP MODAL STYLES --- */
-SetupScreen {
+/* --- SETUP & TO-READ MODAL STYLES --- */
+SetupScreen, ToReadScreen {
     align: center middle;
     background: rgba(18, 18, 18, 0.8);
 }
 
-#setup-container {
+#setup-container, #toread-container {
     width: 60%;
     height: auto;
     padding: 2 4;
@@ -83,7 +101,7 @@ SetupScreen {
     align: center middle;
 }
 
-#setup-title {
+#setup-title, #toread-title {
     text-align: center;
     margin-bottom: 1;
     color: #cdd6f4;
@@ -95,7 +113,7 @@ SetupScreen {
     margin-top: 1;
 }
 
-#branches-input, #languages-input {
+#branches-input, #languages-input, #toread-input {
     width: 100%;
     margin-bottom: 1;
 }
@@ -103,4 +121,21 @@ SetupScreen {
 #save-config-btn {
     width: 100%;
     margin-top: 1;
+}
+
+#toread-list {
+    width: 100%;
+    height: 6;
+    margin-bottom: 1;
+    border: solid #89b4fa;
+}
+
+.toread-buttons {
+    width: 100%;
+    align: center middle;
+    height: auto;
+}
+
+.toread-btn {
+    margin: 0 1;
 }
